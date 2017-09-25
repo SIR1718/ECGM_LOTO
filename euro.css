@@ -1,0 +1,19 @@
+	body {
+	    background-color: navy;
+	}
+
+	h1 {
+	    color: white;
+	}
+
+	ul.numbers {
+	    color: red;
+	}
+
+	ul.stars {
+	    color: gold;
+	}
+
+	div.key {
+	    background-color: lightblue;
+	}
