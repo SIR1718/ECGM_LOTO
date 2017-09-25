@@ -1,5 +1,7 @@
 <?php
-$textJSON = file_get_contents("http://62.28.241.149/~pmoreira/KEYSERVER/KeyServerJSON.php");
+// $textJSON = file_get_contents("http://62.28.241.149/~pmoreira/KEYSERVER/KeyServerJSON.php");
+
+$textJSON = file_get_contents("http://localhost/SIR1718/LOTO_D/keyServerJSON.php");
 
 $varPHP = json_decode($textJSON);
 
