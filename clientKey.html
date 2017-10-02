@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="euro.css">
+</head>
+<body>
+
+	<h1> Chaves do Euromilhões <h1>
+	<button onclick="getKey();"> Obter Chave </button>
+</body>
+<script type="text/javascript">
+	function getKey() {
+		var xmlhttp = new XMLHttpRequest();
+
+		var url = "http://localhost/SIR1718/LOTO_ECGM/myKeyServerJSON.php";
+		xmlhttp.onreadystatechange = function() {
+			console.log("fast::"+this.readyState);
+    		if (this.readyState == 4 && this.status == 200) {
+        		var myKey = JSON.parse(this.responseText);
+        		myFunction(myKey);
+    		}
+
+		};
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	};
+
+function myFunction(key) {
+	console.log(key);
+	myDiv = document.createElement("div");
+	myDiv.setAttribute("class","key");
+
+	myULn = document.createElement("ul");
+	myULn.setAttribute("class","numbers");
+
+	for(i=0; i < key.numbers.length ; i++) {
+		myLI = document.createElement("li");
+		myLI.innerHTML = key.numbers[i];
+		myULn.appendChild(myLI);
+	}
+
+	myULs = document.createElement("ul");
+	myULs.setAttribute("class","stars");
+
+	for(i=0; i < key.stars.length ; i++) {
+		myLI = document.createElement("li");
+		myLI.innerHTML = key.stars[i];
+		myULs.appendChild(myLI);
+	}
+
+	myDiv.appendChild(myULn);
+	myDiv.appendChild(myULs);
+
+	myBody = document.getElementsByTagName("body")[0];
+	myBody.appendChild(myDiv);
+
+}
+
+</script>
+</html>

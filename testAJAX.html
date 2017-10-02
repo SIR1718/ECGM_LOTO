@@ -5,30 +5,49 @@
 </head>
 <body>
 
+	<button onclick="fast();"> Rápido (2 estrelas) </button>
+	<button onclick ="slow();"> Lento (3 estrelas) </button>
+
 </body>
 <script type="text/javascript">
-	<script>
-	var xmlhttp = new XMLHttpRequest();
-	var url = "myTutorials.txt";
 
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var myArr = JSON.parse(this.responseText);
-        myFunction(myArr);
-    }
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
+	function fast() {
+		var xmlhttp = new XMLHttpRequest();
 
-function myFunction(arr) {
-    var out = "";
-    var i;
-    for(i = 0; i < arr.length; i++) {
-        out += '<a href="' + arr[i].url + '">' + 
-        arr[i].display + '</a><br>';
-    }
-    document.getElementById("id01").innerHTML = out;
+		var url = "http://localhost/SIR1718/LOTO_ECGM/myKeyServerJSON.php";
+		xmlhttp.onreadystatechange = function() {
+			console.log("fast::"+this.readyState);
+    		if (this.readyState == 4 && this.status == 200) {
+        		var myKey = JSON.parse(this.responseText);
+        		myFunction(myKey);
+    		}
+
+		};
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	};
+
+	function slow() {
+		var xmlhttp = new XMLHttpRequest();
+
+		var url = "http://localhost/SIR1718/LOTO_ECGM/myKeyServerJSONdelayed.php";
+		xmlhttp.onreadystatechange = function() {
+			console.log("slow::"+this.readyState);
+    		if (this.readyState == 4 && this.status == 200) {
+        		var myKey = JSON.parse(this.responseText);
+        		myFunction(myKey);
+    		}
+
+		};
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	};
+
+
+function myFunction(key) {
+	console.log(key);
 }
-</script>
+
+
 </script>
 </html>
