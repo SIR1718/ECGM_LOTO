@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chaves Certeiras do Euromilhões</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="euro.css">
+
+</head>
+<body>
+
+<h1>Chave do Euromilhões</h1>
+<div id="control">
+	<button id="getkey"> Get new Key</button>
+	<button id="clear"> Clear Keys</button>
+
+</div>
+<!-- comentário -->
+<div id="content">
+	<div class="key">
+		<ul class="numbers">
+			<li>2</li>
+			<li>4</li>
+			<li>10</li>
+			<li>24</li>
+			<li>45</li>
+		</ul>
+	<ul class="stars">
+		<li>2</li>
+		<li>3</li>
+	</ul>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript">
+
+	bGetKey = document.getElementById("getkey");
+	bClear = document.getElementById("clear");
+
+	bGetKey.addEventListener("click",fGetKey);
+	bClear.addEventListener("click",fClear);
+
+	var keyURL = "http://localhost/SIR1718/LOTO_ECGM/myKeyServerJSON.php";
+
+	function fGetKey() {
+		//console.log("You are requesting a Key");
+		
+		// request object
+		var req = new XMLHttpRequest();
+
+		// define the handler when you get the data
+
+		req.onreadystatechange = function () {
+			if (req.readyState == 4 && req.status == 200) {
+				console.log(req.responseText);
+				myKEYJS = JSON.parse(req.responseText);
+				console.log(myKEYJS);
+
+				// create a div with class key
+
+				myKeyDiv = document.createElement("div");
+				myKeyDiv.setAttribute("class","key");
+
+				myULN = document.createElement("ul");
+				myULN.setAttribute("class","numbers");
+
+				for (i=0 ; i < myKEYJS.numbers.length; i++) {
+					newLI = document.createElement("li");
+					newLI.innerHTML = myKEYJS.numbers[i];
+					myULN.appendChild(newLI);
+				}
+
+				myULS = document.createElement("ul");
+				myULS.setAttribute("class","stars");
+
+				for (i=0 ; i < myKEYJS.stars.length; i++) {
+					newLI = document.createElement("li");
+					newLI.innerHTML = myKEYJS.stars[i];
+					myULS.appendChild(newLI);
+				}
+
+
+				contentDiv = document.getElementById("content");
+
+				
+				myKeyDiv.appendChild(myULN);
+				myKeyDiv.appendChild(myULS);
+
+				contentDiv.appendChild(myKeyDiv);
+
+			}
+		}
+
+		req.open("GET",keyURL);
+		req.send();
+
+	}
+
+	function fClear() {
+		//console.log("You trying to clear the keys");
+		contentDiv = document.getElementById("content");
+		contentDiv.innerHTML = "";
+	}
+
+	
+</script>
+</html>
